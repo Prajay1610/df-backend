@@ -5,15 +5,6 @@ const asyncHandler = require("express-async-handler");
 const registerUser = asyncHandler(async (req, res, next) => {
   const { email, password, confirmpassword } = req.body;
 
-  if (!email || !password || !confirmpassword) {
-    res.status(400);
-    throw new Error("Please Enter All The Fields");
-  }
-  if (password !== confirmpassword) {
-    res.status(400);
-    throw new Error("{Passwords do not Match");
-  }
-
   const userExists = await User.findOne({ email });
   if (userExists) {
     res.status(400);
